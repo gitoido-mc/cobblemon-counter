@@ -1,6 +1,13 @@
 {
   "targetSpecies": "minior",
   "targetForms": [
+    "Red",
+    "Orange",
+    "Yellow",
+    "Green",
+    "Blue",
+    "Indigo",
+    "Violet",
     "Meteor"
   ],
   "species": "minior",
