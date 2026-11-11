@@ -50,10 +50,6 @@ dependencies {
 }
 
 tasks {
-    test {
-        useJUnitPlatform()
-    }
-
     processResources {
         inputs.property("version", project.version)
 
