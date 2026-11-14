@@ -47,11 +47,10 @@ tasks {
     processResources {
         inputs.property("version", project.version)
 
-        filesMatching("fabric.mod.json") {
+        filesMatching("META-INF/neoforge.mods.toml") {
             @Suppress("DEPRECATION", "We'll figure it out when Gradle 10 releases")
             expand(project.properties)
         }
-
     }
 
     jar {
@@ -65,6 +64,9 @@ tasks {
     }
 
     shadowJar {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+        exclude("fabric.mod.json")
         archiveClassifier.set("dev-shadow")
         archiveBaseName.set("${rootProject.property("archives_base_name")}-${project.name}")
         configurations = listOf(shadowCommon)

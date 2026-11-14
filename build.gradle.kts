@@ -54,27 +54,25 @@ subprojects {
             }
         }
 
-        repositories {
-            maven {
-                // Set these variables in gh action secrets
-                if (System.getenv("CCM_USER") == null || System.getenv("CCM_PASS") == null) {
-                    throw RuntimeException("Did you forget your publication credentials?")
-                }
+        if (providers.environmentVariable("CCM_BUILD").orNull?.toBoolean() == true) {
+            repositories {
+                maven {
+                    // Set these variables in gh action secrets
+                    if (System.getenv("CCM_USER") == null || System.getenv("CCM_PASS") == null) {
+                        throw RuntimeException("Did you forget your publication credentials?")
+                    }
 
-                url = uri("https://maven.cobbled-creators.org/releases")
-                credentials {
-                    username = System.getenv("CCM_USER").toString()
-                    password = System.getenv("CCM_PASS").toString()
+                    url = uri("https://maven.cobbled-creators.org/releases")
+                    credentials {
+                        username = System.getenv("CCM_USER").toString()
+                        password = System.getenv("CCM_PASS").toString()
+                    }
                 }
             }
         }
     }
 
     tasks {
-        withType<GenerateModuleMetadata> {
-            enabled = false
-        }
-
         test {
             useJUnitPlatform()
         }
